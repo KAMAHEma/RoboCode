@@ -1,3 +1,4 @@
+package Selfmade;
 import robocode.Robot;
 
 
