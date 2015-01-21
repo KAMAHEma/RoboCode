@@ -9,7 +9,7 @@ public class RobotJulian extends AdvancedRobot {
 		turnGunRight(360);
 		while(true) {
 			ahead(100);
-			back(100);
+			back(50);
 		}
 	}
 	
