@@ -10,6 +10,7 @@ public class RobotDaniel extends AdvancedRobot {
             turnGunRight(360);
             back(100);
             turnGunRight(360);
+            System.out.println();
         }
     }
  
