@@ -8,6 +8,7 @@ public class RobotPhilippefiligrano extends AdvancedRobot {
 	public void run(){
 		while (true){
 			ahead(1);
+			System.out.println("GAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
 		}
 	}
   
