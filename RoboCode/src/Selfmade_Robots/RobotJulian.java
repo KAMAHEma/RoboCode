@@ -7,6 +7,7 @@ public class RobotJulian extends AdvancedRobot {
 	boolean movingForward; // Is set to true when setAhead is called, set to false on setBack
 	boolean inWall; // Is true when robot is near the wall.
 	int dist = 50; // distance to move when we're hit
+	
 
 	/**
 	 * run:  Fire's main run function
