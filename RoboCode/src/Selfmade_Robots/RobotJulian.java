@@ -10,7 +10,7 @@ public class RobotJulian extends AdvancedRobot {
 	
 
 	/**
-	 * run:  Fire's main run function
+	 * run: j Fire's main run function
 	 */
 	public void run() {
 		// Set colors
