@@ -14,7 +14,7 @@ public class RobotDaniel extends AdvancedRobot {
 
 	public void run() {
 		setBodyColor(new Color(0, 0, 0));
-		setGunColor(new Color(0, 240, 56));
+		setGunColor(new Color(0, 240, 55));
 		setRadarColor(new Color(179, 9, 32));
 		setBulletColor(new Color(255, 102, 0));
 		setScanColor(new Color(179, 9, 32));
