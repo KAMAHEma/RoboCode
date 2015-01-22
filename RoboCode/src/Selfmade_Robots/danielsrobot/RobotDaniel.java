@@ -1,4 +1,4 @@
-package Selfmade_Robots;
+package Selfmade_Robots.danielsrobot;
 
 import java.awt.Color;
 import java.util.Random;
@@ -6,31 +6,51 @@ import java.util.Random;
 import robocode.AdvancedRobot;
 import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
+import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 import robocode.TurnCompleteCondition;
 
 public class RobotDaniel extends AdvancedRobot {
 	private boolean isMovingForward;
+	private double turnDegree = 450;
+
+	private Gegner gegner = new Gegner();
 
 	public void run() {
-		setBodyColor(new Color(0, 0, 0));
-		setGunColor(new Color(0, 240, 55));
-		setRadarColor(new Color(179, 9, 32));
-		setBulletColor(new Color(255, 102, 0));
-		setScanColor(new Color(179, 9, 32));
+		initProperties();
+
 		while (true) {
 			setAhead(getRandomDistance());
-			isMovingForward = true;
-			setTurnRight(90);
-			// Wir drehen uns einmal zu Ende
-			waitFor(new TurnCompleteCondition(this));
-			// nun wechseln wir unsere Kurvenrichtung
-			setTurnLeft(180);
-			waitFor(new TurnCompleteCondition(this));
-			// nun wechseln wir unsere Kurvenrichtung
-			setTurnRight(180);
-			waitFor(new TurnCompleteCondition(this));
+			pushMovement();
 		}
+	}
+
+	private void initProperties() {
+		setBodyColor(Color.BLACK);
+		setGunColor(Color.RED);
+		setRadarColor(Color.CYAN);
+		setBulletColor(Color.ORANGE);
+		setScanColor(Color.RED);
+
+		setAdjustGunForRobotTurn(true);
+		gegner.reset();
+
+		execute();
+	}
+
+	private void pushMovement() {
+		isMovingForward = true;
+
+		setTurnRight(90);
+		turnGunRight(10000);
+		waitFor(new TurnCompleteCondition(this));
+//		turnGunRight(turnDegree);
+		setTurnLeft(180);
+		waitFor(new TurnCompleteCondition(this));
+//		turnGunRight(turnDegree);
+		setTurnRight(180);
+		waitFor(new TurnCompleteCondition(this));
+		execute();
 	}
 
 	public int getRandomDistance() {
@@ -54,13 +74,18 @@ public class RobotDaniel extends AdvancedRobot {
 	}
 
 	public void onScannedRobot(ScannedRobotEvent e) {
-		int power4distance = renderFireDistance(e.getDistance());
-		if (power4distance != -1) {
-			long shotTravelTime = (long) (e.getDistance() / (20 - power4distance * 3));
-			
-			fire(power4distance);
+		if (!gegner.isEnemyKnown() || e.getName().equals(gegner.getName())) {
+			gegner.update(e);
 		}
-		
+
+		int power4distance = renderFireDistance(e.getDistance());
+		setTurnGunRight(getHeading() - getRadarHeading() + e.getBearing());
+		if (power4distance != -1) {
+//			long shotTravelTime = (long) (e.getDistance() / (20 - power4distance * 3));
+//			setTurnGunRight(0);
+			fire(power4distance);
+//			setTurnGunRight(turnDegree);
+		}
 	}
 
 	public int renderFireDistance(double robotDistance) {
@@ -78,6 +103,12 @@ public class RobotDaniel extends AdvancedRobot {
 	public void onHitRobot(HitRobotEvent e) {
 		if (e.isMyFault()) {
 			fireTurnAround();
+		}
+	}
+
+	public void onRobotDeath(RobotDeathEvent e) {
+		if (e.getName().equals(gegner.getName())) {
+			gegner.reset();
 		}
 	}
 }
