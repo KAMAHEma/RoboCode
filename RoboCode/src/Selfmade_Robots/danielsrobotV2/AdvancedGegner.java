@@ -1,4 +1,4 @@
-package Selfmade_Robots.danielsrobot;
+package Selfmade_Robots.danielsrobotV2;
 
 import robocode.Robot;
 import robocode.ScannedRobotEvent;

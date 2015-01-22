@@ -1,4 +1,4 @@
-package Selfmade_Robots.danielsrobot;
+package Selfmade_Robots.danielsrobotV2;
 
 import java.awt.Color;
 import java.util.Random;
@@ -55,7 +55,7 @@ public class RobotDaniel extends AdvancedRobot {
 
 	public int getRandomDistance() {
 		Random rand = new Random();
-		int n = rand.nextInt(40000) + 25000;
+		int n = rand.nextInt(40000) + 25001;
 		return n;
 	}
 
